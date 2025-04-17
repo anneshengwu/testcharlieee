@@ -1,31 +1,29 @@
 # Advanced GitHub Projects with Automations
 
-Welcome to this interactive tutorial on automating GitHub Projects for efficient workflows! This repository will guide you through creating a project board and implementing powerful automations using GitHub Projects V2.
+## Step 2: Set Up Item-Based Automations
+Now that you've created your project with custom fields, let's configure automations that trigger when items change.
 
-## How This Works
-As you complete each step, this README will automatically update to show the next task. Follow along to learn advanced GitHub Projects automation step by step.
+### 📋 Task: Configure Item-Based Automations
+1. Navigate to your "Automated Workflow" project
+2. Click the project settings menu (⚙️) in the top-right
+3. Select "Workflows" from the left sidebar
+4. Create the following automations:
+   - When an issue is closed, set Status to "Completed"
+   - When a pull request is opened, set Status to "Under Review"
+   - When an issue or PR has "high" in its title, set Priority to "High"
+   - When an item's Status changes to "In Progress", add the current user as the Assignee
 
-## Step 1: Create a Project Board with Custom Fields
-Let's start by creating a project board with fields designed for automation.
+To create a workflow:
+- Click "New workflow"
+- Choose "Item added to project" or "Item field changed" as the trigger
+- Set up the conditions and actions as described above
+- Save the workflow
 
-### 📋 Task: Create a Project with Custom Fields
-1. Go to the "Projects" tab at the top of this repository
-2. Click "Create project"
-3. Select "Board" as the template
-4. Name your project "Automated Workflow"
-5. Click "Create"
-6. Add the following custom fields:
-   - "Status" as a "Single select" with options: Backlog, In Progress, Under Review, Completed
-   - "Priority" as a "Single select" with options: Low, Medium, High, Critical
-   - "Due Date" as a "Date" field
-   - "Effort" as a "Number" field
-   - "Assignee" as a "Person" field
+Once completed, go to the **Actions** tab and run the "Complete Step 2" workflow to proceed to the next step.
 
-Once completed, go to the **Actions** tab and run the "Complete Step 1" workflow to proceed to the next step.
+### 📚 What are Item-Based Automations?
+Item-based automations trigger when items (issues or PRs) are added to your project or when their field values change. These automations help ensure your project stays up-to-date automatically as work progresses, reducing manual updates and ensuring consistency.
 
-### 📚 Why Custom Fields Matter for Automation
-Custom fields act as triggers and conditions for automations. Well-structured fields make it possible to create powerful, targeted workflows that update automatically based on specific conditions or events.
+### ⏳ Waiting for you to set up item-based automations...
 
-### ⏳ Waiting for you to create a project with custom fields...
-
-<!-- STEP: 1 -->
+<!-- STEP: 2 -->
