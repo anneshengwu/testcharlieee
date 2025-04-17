@@ -1,29 +1,28 @@
 # Advanced GitHub Projects with Automations
 
-## Step 2: Set Up Item-Based Automations
-Now that you've created your project with custom fields, let's configure automations that trigger when items change.
+Welcome to this interactive tutorial on automating GitHub Projects for efficient workflows! This repository will guide you through creating a project board and implementing powerful automations using GitHub Projects V2.
 
-### 📋 Task: Configure Item-Based Automations
+## Step 3: Implement Date-Based Automations
+Let's set up automations that run based on dates and time conditions.
+
+### 📋 Task: Set Up Date-Based Automations
 1. Navigate to your "Automated Workflow" project
-2. Click the project settings menu (⚙️) in the top-right
-3. Select "Workflows" from the left sidebar
-4. Create the following automations:
-   - When an issue is closed, set Status to "Completed"
-   - When a pull request is opened, set Status to "Under Review"
-   - When an issue or PR has "high" in its title, set Priority to "High"
-   - When an item's Status changes to "In Progress", add the current user as the Assignee
+2. Go to project settings (⚙️) > Workflows
+3. Create the following date-based automations:
+   - When an item's Due Date is today, set Priority to "Critical"
+   - When an item's Due Date is within 3 days, set Priority to "High" (if not already Critical)
+   - When Status has been "In Progress" for more than 7 days, add a comment requesting an update
+   - Create a scheduled workflow that runs weekly to archive items with Status "Completed" for more than 14 days
 
-To create a workflow:
-- Click "New workflow"
-- Choose "Item added to project" or "Item field changed" as the trigger
-- Set up the conditions and actions as described above
-- Save the workflow
+To create date-based workflows:
+- For field conditions, use the "Item field" trigger with date comparisons
+- For scheduled workflows, use the "Scheduled" trigger type
 
-Once completed, go to the **Actions** tab and run the "Complete Step 2" workflow to proceed to the next step.
+Once completed, go to the **Actions** tab and run the "Complete Step 3" workflow to proceed to the next step.
 
-### 📚 What are Item-Based Automations?
-Item-based automations trigger when items (issues or PRs) are added to your project or when their field values change. These automations help ensure your project stays up-to-date automatically as work progresses, reducing manual updates and ensuring consistency.
+### 📚 The Power of Date-Based Automations
+Date-based automations help teams stay on schedule and maintain awareness of approaching deadlines. They can automatically escalate priority as deadlines approach, clean up completed work, and help prevent items from stagnating in any status for too long.
 
-### ⏳ Waiting for you to set up item-based automations...
+### ⏳ Waiting for you to set up date-based automations...
 
-<!-- STEP: 2 -->
+<!-- STEP: 3 -->
