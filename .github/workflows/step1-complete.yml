@@ -1,0 +1,36 @@
+name: Complete Step 1
+
+on:
+  workflow_dispatch:
+    description: 'Run this after completing Step 1 (Creating a Design Project)'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Check current step
+        id: check_step
+        run: |
+          current_step=$(grep -o "<!-- STEP: [0-9]\+ -->" README.md | sed -n 's/<!-- STEP: \([0-9]\+\) -->/\1/p' || echo "0")
+          echo "CURRENT_STEP=$current_step" >> $GITHUB_ENV
+          echo "Current step: $current_step"
+
+      - name: Update README to step 2
+        if: ${{ env.CURRENT_STEP == '1' }}
+        run: |
+          cp steps/step2.md README.md
+          
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add README.md
+          git commit -m "Update README to step 2"
+          git push
+          
+      - name: Already completed
+        if: ${{ env.CURRENT_STEP != '1' }}
+        run: |
+          echo "Step 1 has already been completed or not yet reached. Current step is ${{ env.CURRENT_STEP }}."

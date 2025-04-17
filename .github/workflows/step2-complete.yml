@@ -1,0 +1,43 @@
+name: Complete Step 2
+
+on:
+  workflow_dispatch:
+    description: 'Run this after completing Step 2 (Adding Custom Views)'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Check current step
+        id: check_step
+        run: |
+          current_step=$(grep -o "<!-- STEP: [0-9]\+ -->" README.md | sed -n 's/<!-- STEP: \([0-9]\+\) -->/\1/p' || echo "0")
+          echo "CURRENT_STEP=$current_step" >> $GITHUB_ENV
+          echo "Current step: $current_step"
+
+      - name: Update README to step 3
+        if: ${{ env.CURRENT_STEP == '2' }}
+        run: |
+          cp steps/step3.md README.md
+          
+          # Fix the step marker in step3.md
+          sed -i 's/<!-- STEP: 2 -->/<!-- STEP: 3 -->/' README.md
+          
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add README.md
+          git commit -m "Update README to step 3"
+          git push
+          
+      - name: Not ready or already completed
+        if: ${{ env.CURRENT_STEP != '2' }}
+        run: |
+          if [ "${{ env.CURRENT_STEP }}" -lt "2" ]; then
+            echo "You need to complete previous steps first. Current step is ${{ env.CURRENT_STEP }}."
+          else
+            echo "Step 2 has already been completed. Current step is ${{ env.CURRENT_STEP }}."
+          fi

@@ -1,0 +1,62 @@
+name: Complete Step 3
+
+on:
+  workflow_dispatch:
+    description: 'Run this after completing Step 3 (Setting Up Custom Fields)'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check current step with debugging
+        id: check_step
+        run: |
+          echo "Current README content:"
+          cat README.md
+          
+          echo "Searching for step marker..."
+          grep -o "<!-- STEP: [0-9]\+ -->" README.md || echo "No step marker found"
+          
+          current_step=$(grep -o "<!-- STEP: [0-9]\+ -->" README.md | sed -n 's/<!-- STEP: \([0-9]\+\) -->/\1/p' || echo "0")
+          echo "CURRENT_STEP=$current_step" >> $GITHUB_ENV
+          echo "Detected current step: $current_step"
+          
+          # Check if step4.md exists
+          echo "Checking if step4.md exists:"
+          ls -la steps/
+          cat steps/step4.md | head -5
+
+      - name: Update README to step 4
+        run: |
+          echo "Current step is: ${{ env.CURRENT_STEP }}"
+          
+          if [ "${{ env.CURRENT_STEP }}" = "3" ]; then
+            echo "Updating README to step 4"
+            cp steps/step4.md README.md
+            
+            echo "Configuring git"
+            git config --local user.email "github-actions[bot]@users.noreply.github.com"
+            git config --local user.name "github-actions[bot]"
+            
+            echo "Adding and committing changes"
+            git add README.md
+            git commit -m "Update README to step 4"
+            
+            echo "Pushing changes"
+            git push
+            
+            echo "Changes pushed successfully"
+          else
+            echo "Not updating README: Current step (${{ env.CURRENT_STEP }}) is not 3"
+            
+            if [ "${{ env.CURRENT_STEP }}" -lt "3" ]; then
+              echo "You need to complete previous steps first. Current step is ${{ env.CURRENT_STEP }}."
+            else
+              echo "Step 3 has already been completed. Current step is ${{ env.CURRENT_STEP }}."
+            fi
+          fi
